@@ -7,7 +7,7 @@
  PYVERSION=3.7m                                                                                                                                                                                                    
  CYTHON=/usr/local/bin/cython                                                                                                                                                                                      
                                                                                                                                                                                                                    
- $CYTHON -3 --embed $1.pyx                                                                                                                                                                                         
+ $CYTHON -3 -a --embed $1.pyx                                                                                                                                                                                         
                                                                                                                                                                                                                    
  $CC -Os \                                                                                                                                                                                                         
          -I /usr/include/python$PYVERSION \                                                                                                                                                                        
