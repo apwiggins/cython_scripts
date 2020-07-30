@@ -12,3 +12,4 @@ cy - a simple command-line bash wrapper
    - compile a cython .pyx file to binary
    - usage: cy ./file (less .pyx suffix)
    - useful for simple .pyx files
+   
