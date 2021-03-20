@@ -5,7 +5,7 @@
  
  CC=/usr/bin/gcc                                                                                                                                                                                                   
  PYVERSION=3.7m                                                                                                                                                                                                    
- CYTHON=/usr/local/bin/cython                                                                                                                                                                                      
+ CYTHON=/usr/bin/cython                                                                                                                                                                                      
                                                                                                                                                                                                                    
  $CYTHON -3 -a --embed $1.pyx                                                                                                                                                                                         
                                                                                                                                                                                                                    
