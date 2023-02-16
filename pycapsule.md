@@ -1,6 +1,16 @@
-# PyCapsule example to work with a C function that works with a previously created C ptr to a struct object returned as void
+# PyCapsule example for a C function that consumes a previously created C ptr to a struct object created by a void function
 
+## void function declaration from .pxd
+void initMsgHeader(msgHeaderType *msgHeader, int msgVersion)
+char *readMsgHeader(char *buf, msgHeaderType *msgHeader)
+
+## PyCapsule passing msgHeader struct pointer
+initMsgHeader(&c_msgHeader, _msgVersion)
+    ''' void function initializes the struct for c_msgHeader '''
 ptr_msgdata = pycapsule.PyCapsule_New(readMsgHeader(c_buf, &c_msgHeader), NULL, NULL)
+   ''' now the c_msgHeader struct is available in python to access the struct's data content '''
+originator = c_msgHeader.originator
+sequenceNum = c_msgHeader.sequencenumber
 
 '''The Cython code creates a Python capsule (similar to a smart pointer in C++)
  to store a pointer to some data. The data being pointed to is obtained by
