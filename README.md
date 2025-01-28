@@ -13,3 +13,5 @@ cy - a simple command-line bash wrapper
    - usage: cy ./file (less .pyx suffix)
    - useful for simple .pyx files
    
+# Example with python3 / cython3
+An updated python3 / cython3 example is included with an updated Makefile
