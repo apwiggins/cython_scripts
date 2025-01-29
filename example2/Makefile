@@ -1,32 +1,29 @@
 # Variables
 PYTHON := python3
 CYTHON := cython3
-PYX_FILES := $(wildcard *.pyx)  # All .pyx files in the directory
-C_FILES := $(PYX_FILES:.pyx=.c)  # Convert .pyx to .c
-BINARIES := $(PYX_FILES:.pyx=)  # Output binary names
+TARGET := example2
+PYX_FILE := $(TARGET).pyx
+C_FILE := $(TARGET).c
+BIN_FILE := $(TARGET)
 
 PYTHON_INCLUDE := $(shell $(PYTHON) -c "from sysconfig import get_paths as gp; print(gp()['include'])")
-PYTHON_LIB := $(shell $(PYTHON) -c "import sysconfig; print(sysconfig.get_config_var('LIBDIR'))")
-PYTHON_LDFLAGS := $(shell $(PYTHON) -c "import sysconfig; print(sysconfig.get_config_var('LIBS'))")
-CFLAGS := -fPIC -I$(PYTHON_INCLUDE)
-LDFLAGS := -L$(PYTHON_LIB) -lpython$(shell $(PYTHON) -c "import sysconfig; print(sysconfig.get_config_var('VERSION'))") -lm -ldl
+LDFLAGS := -L/usr/lib/x86_64-linux-gnu -lpython3.10 -lm -ldl
 
-# Default target: Build all binaries
-all: $(BINARIES)
+# Default target: Build the binary
+all: $(BIN_FILE)
 
-# Rule to generate .c files from .pyx
-%.c: %.pyx
+# Compile .pyx to .c
+$(C_FILE): $(PYX_FILE)
 	$(CYTHON) --embed --directive language_level=3 $< -o $@
 
-# Rule to compile .c files into an executable
-%: %.c
-	gcc $< -o $@ $(CFLAGS) $(LDFLAGS)
-
-# Clean up all generated files
-clean:
-	rm -f $(C_FILES) $(BINARIES)
+# Compile .c to executable
+$(BIN_FILE): $(C_FILE)
+	gcc $(C_FILE) -o $(BIN_FILE) -fPIC -I$(PYTHON_INCLUDE) $(LDFLAGS)
 
 # Run the compiled binary
 run: all
-	./example2
+	./$(BIN_FILE)
 
+# Clean generated files
+clean:
+	rm -f $(C_FILE) $(BIN_FILE)
