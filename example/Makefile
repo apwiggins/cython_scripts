@@ -15,9 +15,9 @@ LDFLAGS := $(shell $(PYTHON) -c "import sysconfig; print(sysconfig.get_config_va
 # Default target: Build all .so files
 all: $(SO_FILES)
 
-# Rule to generate .c files from .pyx
+# Rule to generate .c files from .pyx; set language_level for Python/Cython to version 3
 %.c: %.pyx
-	$(CYTHON) --embed $< -o $@
+	$(CYTHON) --embed --directive language_level=3 $< -o $@
 
 # Rule to compile .c files into .so shared objects
 %.so: %.c
