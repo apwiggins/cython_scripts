@@ -1,5 +1,6 @@
 # Variables
 PYTHON := python3
+PYTHON_VERSION := 3.12
 CYTHON := cython3
 TARGET := example2
 PYX_FILE := $(TARGET).pyx
@@ -7,7 +8,7 @@ C_FILE := $(TARGET).c
 BIN_FILE := $(TARGET)
 
 PYTHON_INCLUDE := $(shell $(PYTHON) -c "from sysconfig import get_paths as gp; print(gp()['include'])")
-LDFLAGS := -L/usr/lib/x86_64-linux-gnu -lpython3.10 -lm -ldl
+LDFLAGS := -L/usr/lib/x86_64-linux-gnu -lpython$(PYTHON_VERSION) -lm -ldl
 
 # Default target: Build the binary
 all: $(BIN_FILE)
