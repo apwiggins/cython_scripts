@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+install_list=make,gcc,cython3
+
+output=$(dagger -c "
+  container |
+  from python:3.11 |
+  with-exec apt-get,update |
+  with-exec apt-get,install,-y,$install_list |
+  with-directory /app /pbr/example3 |
+  with-workdir /app |
+  with-exec make,run |
+  stdout
+")
+
+echo "RESULT:"
+echo "$output"
