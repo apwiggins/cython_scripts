@@ -7,7 +7,7 @@ dagger -c "
   from python:3.11 |
   with-exec apt-get,update |
   with-exec apt-get,install,-y,$install_list |
-  with-directory "/app" /pbr/example3 |
+  with-directory "/app" /cython_scripts/example3 |
   with-workdir "/app" |
   terminal
 "
